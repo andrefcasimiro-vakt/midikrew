@@ -8,6 +8,7 @@ const Types = {
   SET_CURRENT_SEQUENCE: "SET_CURRENT_SEQUENCE",
   ADD_SEQUENCE: "ADD_SEQUENCE",
   REMOVE_SEQUENCE: "REMOVE_SEQUENCE",
+  CLEAR_ALL_SEQUENCES: "CLEAR_ALL_SEQUENCES",
   PLAY: "PLAY",
   PAUSE: "PAUSE",
   SET_MODE: "SET_MODE",
@@ -42,6 +43,11 @@ const removeSequence = () => ({
   type: Types.REMOVE_SEQUENCE,
 })
 
+// Clears all the sequences of the song
+const clearSequences = () => ({
+  type: Types.CLEAR_ALL_SEQUENCES,
+})
+
 const play = () => ({
   type: Types.PLAY,
 })
@@ -62,6 +68,7 @@ export default {
   setCurrentSequence,
   addSequence,
   removeSequence,
+  clearSequences,
   play,
   pause,
   setMode,

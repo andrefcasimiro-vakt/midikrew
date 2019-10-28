@@ -24,6 +24,7 @@ if (element) {
   ReactDOM.render(
     <ReduxProvider store={reduxStore}>
       <App />
-    </ReduxProvider>
-  , element)
+    </ReduxProvider>,
+    element
+  )
 }

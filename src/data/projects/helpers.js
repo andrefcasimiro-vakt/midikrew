@@ -14,6 +14,10 @@ export const importProject = (json: any) => {
     TRACK_ACTIONS.setCurrentBPM(file.bpm)
   )
 
+  // Clear all sequences of the current project
+  reduxStore.dispatch(
+    TRACK_ACTIONS.clearSequences()
+  )
 
   // Set Number Of Sequences
   const fileSequencesLength = file.sequences.length

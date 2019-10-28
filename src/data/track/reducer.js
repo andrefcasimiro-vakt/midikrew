@@ -98,6 +98,17 @@ const trackReducer = (state: typeof defaultState = defaultState, action: { type:
         sequences,
       }
     }
+    case ACTIONS.Types.CLEAR_ALL_SEQUENCES: {
+      return {
+        ...state,
+        sequences: [
+          {
+            id: `Sequence ${Date.now()}`,
+            numberOfSteps: 16,
+          },
+        ],
+      }
+    }
     case ACTIONS.Types.PLAY: {
       state.audioContext.resume()
 

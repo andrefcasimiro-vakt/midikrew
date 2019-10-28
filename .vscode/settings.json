@@ -1,0 +1,13 @@
+{
+    "javascript.format.insertSpaceAfterCommaDelimiter": false,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "javascript.preferences.renameShorthandProperties": false,
+    "javascript.suggest.completeJSDocs": false,
+    "javascript.suggest.autoImports": false,
+    "javascript.suggest.names": false,
+    "javascript.suggest.paths": false,
+}
