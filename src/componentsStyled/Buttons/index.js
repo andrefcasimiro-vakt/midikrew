@@ -71,15 +71,27 @@ export const IconButton = styled.button`
     background: ${theme.colors.monicastro.dark};
     color: ${theme.colors.monicastro.grey};
   `}
+
+  transition: 0.3s ease all;
+
+  &:hover {
+    background: ${theme.colors.monicastro.dark};
+    color: ${theme.colors.monicastro.white};
+  }
+
+  ${p => p.active && css`
+      background: ${theme.colors.monicastro.dark};
+      color: ${theme.colors.monicastro.white};
+  `}
 `
 
 export const PaddedIconButton = styled(IconButton)`
-  padding: 0.5rem;
+  padding: ${p => p.padding ? `${p.padding}` : `0.5rem`};
   height: auto;
   margin-top: 0.2rem;
   border-radius: 0.2rem;
 
-  transition: 0.2s ease all;
+  transition: 0.3s ease all;
 
   &:hover {
     background: ${theme.colors.monicastro.dark};
@@ -94,7 +106,7 @@ export const FullIconButton = styled(IconButton)`
   border-radius: 0.2rem;
   width: 100%;
 
-  transition: 0.2s ease all;
+  transition: 0.3s ease all;
 
   &:hover {
     background: ${theme.colors.monicastro.dark};

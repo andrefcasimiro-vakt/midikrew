@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import { connect } from 'react-redux'
 import { compose, type HOC, withHandlers, withStateHandlers, withProps, lifecycle } from 'recompose'
 import INSTRUMENT_ACTIONS from 'data/instrument/actions'
+import TRACK_ACTIONS from 'data/track/actions'
 import type { Instrument } from 'data/instrument/types'
 import { PLAYER_STATE } from 'data/track/reducer'
 import StepOptions from './StepOptions'
@@ -12,7 +13,7 @@ import {
   IoMdColorWand as GearIcon,
 } from 'react-icons/io'
 import { IconContext } from "react-icons"
-import { ActionWrapper, StepWrapper, OptionWrapper } from './styled'
+import { ActionWrapper, StepWrapper } from './styled'
 import Modal from 'modals/_Modal'
 import { play } from 'data/audio/helpers'
 
@@ -37,6 +38,8 @@ const InstrumentStep = ({
   setFX,
   toggleOpen,
   isOpen,
+  editMode,
+  setEditMode,
 }) => {
   let trigger = 
     canPlay && 
@@ -55,22 +58,15 @@ const InstrumentStep = ({
 
   return (
     <ActionWrapper>
-      <StepWrapper selected={selected} index={index} onClick={handleSelection} />
+      <StepWrapper selected={selected} index={index} onClick={editMode === 'pattern' ? handleSelection : toggleOpen} editMode={editMode} />
         {trigger
           ? play(instrument.sampleSource, audioContext, fxObj)
           : null
         }
-      {selected &&
-        <OptionWrapper>
-          <IconContext.Provider value={{ color: "white" }}>
-            <GearIcon onClick={toggleOpen} />
-          </IconContext.Provider>
-          {isOpen &&
-            <Modal title='Edit FX' close={toggleOpen}>
-              <StepOptions setFx={setFX} fx={fxObj} />
-            </Modal>
-          }
-        </OptionWrapper>
+      {selected && isOpen &&
+        <Modal title='Edit FX' close={toggleOpen}>
+          <StepOptions setFx={setFX} fx={fxObj} />
+        </Modal>
       }
     </ActionWrapper>
   )
@@ -83,10 +79,12 @@ const mapStateToProps = state => ({
   audioContext: state.track.audioContext,
   playerState: state.track.playerState,
   instruments: state.instrument.instruments,
+  editMode: state.track.editMode,
 })
 
 const mapDispatchToProps = {
   updateSequence: INSTRUMENT_ACTIONS.updateSequence,
+  setEditMode: TRACK_ACTIONS.setEditMode,
 }
 
 const enhancer: HOC<*, Props> = compose(
@@ -178,6 +176,10 @@ const enhancer: HOC<*, Props> = compose(
   }),
   lifecycle({
     shouldComponentUpdate(nextProps) {
+      if (this.props.editMode !== nextProps.editMode) {
+        return true
+      }
+
       return !this.props.selected && !nextProps.selected
         ? false
         : true
