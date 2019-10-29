@@ -18,14 +18,9 @@ export const StepWrapper = styled.div`
   background: ${p => p.selected
     ? theme.colors.monicastro.blue
     : p.index % 4 === 0 ? theme.colors.monicastro.darkGreyLight : theme.colors.monicastro.grey};
-  border-right: 1px solid ${p => p.selected && p.editMode === 'pattern' ? theme.colors.monicastro.blue : theme.colors.monicastro.dark};
+  border-right: 1px solid ${theme.colors.monicastro.dark};
   flex-direction: row;
   cursor: pointer;
-
-  &:hover {
-    background: ${p => p.editMode === 'pattern' ? `${theme.colors.monicastro.blue}` : 'grey'};
-    opacity: 0.5;
-  }
 
   &:active {
     opacity: 1;

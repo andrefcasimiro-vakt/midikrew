@@ -143,6 +143,10 @@ const enhancer: HOC<*, Props> = compose(
       })
     },
     handleSelection: props => () => {
+      if (props.editMode === 'fx') {
+        return;
+      }
+
       let sequence = R.path(['sequences', props.currentSequence], props.instrument)
         ? props.instrument.sequences[props.currentSequence].slice()
         : []
@@ -176,10 +180,6 @@ const enhancer: HOC<*, Props> = compose(
   }),
   lifecycle({
     shouldComponentUpdate(nextProps) {
-      if (this.props.editMode !== nextProps.editMode) {
-        return true
-      }
-
       return !this.props.selected && !nextProps.selected
         ? false
         : true
