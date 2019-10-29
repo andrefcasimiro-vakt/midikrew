@@ -22,7 +22,7 @@ export const MainContainer = styled.div`
 `
 
 export const SongTools = styled(MainContainer)`
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   max-width: none;

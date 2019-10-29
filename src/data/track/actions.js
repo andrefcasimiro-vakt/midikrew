@@ -12,6 +12,7 @@ const Types = {
   PLAY: "PLAY",
   PAUSE: "PAUSE",
   SET_MODE: "SET_MODE",
+  SET_EDIT_MODE: "SET_EDIT_MODE",
 }
 
 // actions
@@ -61,6 +62,12 @@ const setMode = (payload: string) => ({
   payload,
 })
 
+// Allows user to alternate between pattern editing and fx editing
+const setEditMode = (payload: 'pattern' | 'fx') => ({
+  type: Types.SET_EDIT_MODE,
+  payload,
+})
+
 export default {
   setCurrentBPM,
   setInterval,
@@ -72,5 +79,6 @@ export default {
   play,
   pause,
   setMode,
+  setEditMode,
   Types,
 }

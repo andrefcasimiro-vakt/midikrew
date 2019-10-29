@@ -17,6 +17,11 @@ export const PLAYER_MODE = {
   loop: 'loop',
 }
 
+export const EDIT_MODE = {
+  pattern: 'pattern',
+  fx: 'fx',
+}
+
 type State = {
   bpm: number,
   interval: number, // the interval of a loop based on bpms and lines per beat
@@ -29,6 +34,7 @@ type State = {
   audioContext: AudioContext,
   playerState: 'playing' | 'paused',
   playerMode: 'continuous' | 'loop',
+  editMode: 'pattern' | 'fx'
 }
 
 const defaultState: State = {
@@ -45,6 +51,7 @@ const defaultState: State = {
   audioContext,
   playerState: 'paused',
   playerMode: 'continuous',
+  editMode: 'pattern',
 }
 
 const trackReducer = (state: typeof defaultState = defaultState, action: { type: string, payload: any }) => {
@@ -129,6 +136,12 @@ const trackReducer = (state: typeof defaultState = defaultState, action: { type:
       return {
         ...state,
         playerMode: action.payload,
+      }
+    }
+    case ACTIONS.Types.SET_EDIT_MODE: {
+      return {
+        ...state,
+        editMode: action.payload,
       }
     }
     default:

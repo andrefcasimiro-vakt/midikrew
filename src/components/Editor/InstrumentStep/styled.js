@@ -1,5 +1,5 @@
 // @flow
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from 'global/theme'
 import { mq } from 'common/mediaQueries'
 
@@ -12,44 +12,21 @@ export const ActionWrapper = styled.div`
   position: relative;
 `
 
-export const OptionWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  padding-top: 0;
-
-  display: flex;
-  width: auto;
-  height: 40%;
-  flex-direction: column;
-
-  ${mq('max').phoneWide} {
-    width: 100%;
-  }
-
-  ${mq('min').tabletWide} {
-    width: 20%;
-    padding-top: 0.2rem;
-    height: 100%;
-  }
-`
-
 export const StepWrapper = styled.div`
   height: 100%;
   width: 100%;
   background: ${p => p.selected
     ? theme.colors.monicastro.blue
     : p.index % 4 === 0 ? theme.colors.monicastro.darkGreyLight : theme.colors.monicastro.grey};
-  border-right: 1px solid ${p => p.selected ? theme.colors.monicastro.blue : theme.colors.monicastro.darkGrey};
+  border-right: 1px solid ${theme.colors.monicastro.dark};
   flex-direction: row;
+  cursor: pointer;
 
-  ${mq('min').tabletWide} {
-    &:hover {
-      background: ${theme.colors.monicastro.blue};
-      cursor: pointer;
-      opacity: 0.5;
-    }
-    &:active {
-      opacity: 1;
-    }
+  &:active {
+    opacity: 1;
   }
+
+  ${p => p.editMode === 'fx' && p.selected && css`
+    background: ${theme.colors.monicastro.dark};
+  `}
 `
