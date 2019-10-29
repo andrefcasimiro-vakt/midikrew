@@ -6,6 +6,7 @@ import { IconButton, PaddedIconButton } from 'componentsStyled/Buttons'
 import INSTRUMENT_ACTIONS from 'data/instrument/actions'
 import TRACK_ACTIONS from 'data/track/actions'
 import { Field } from 'componentsStyled/Typography'
+import withKey from 'hocs/withKey'
 import {
   MdContentCopy as CopyIcon,
   MdContentPaste as PasteIcon,
@@ -59,6 +60,7 @@ const mapDispatchToProps = {
 
 const enhancer: HOC<*, {}> = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withKey(70, ({ setEditMode, editMode }) =>  setEditMode(editMode === 'fx' ? 'pattern' : 'fx')), // Capture F key
   withHandlers({
     handleBPM: props => event => {
       const v = event.target.value

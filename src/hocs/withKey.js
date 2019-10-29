@@ -3,6 +3,7 @@ import { compose, lifecycle, type Component, withStateHandlers } from 'recompose
 
 function withKey<T>(
   keyCode: number,
+  callback?: Function,
 ): Component<T, { isPressed: boolean }> {
   return compose(
     withStateHandlers(
@@ -19,6 +20,10 @@ function withKey<T>(
         document.addEventListener('keydown', event => {
           if (event.keyCode === keyCode) {
             this.props.setIsPressed(true)
+
+            if (callback) {
+              callback(this.props);
+            }
           }
         })
         // $Ignore
