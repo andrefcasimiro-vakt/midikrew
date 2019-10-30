@@ -6,6 +6,7 @@ import INSTRUMENT_ACTIONS from 'data/instrument/actions'
 //import type { Instrument } from 'data/instrument/types'
 import { IconButton } from 'componentsStyled/Buttons'
 import StatefulLink from 'components/StatefulLink'
+import Autosuggest from 'components/Autosuggest'
 import InstrumentsMenu from 'components/Navbar/InstrumentsMenu'
 import {
   GoDiffAdded as PlusIcon,
@@ -30,6 +31,7 @@ const InstrumentsManager = ({ addInstrument, removeInstrument }) => (
     <IconButton>
       <RemoveIcon title='Remove an existing instrument' onClick={removeInstrument} />
     </IconButton>
+    <Autosuggest />
   </Menu>
 )
 
