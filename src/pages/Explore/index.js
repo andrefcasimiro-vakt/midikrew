@@ -1,8 +1,9 @@
 // @flow
 import React from 'react'
+import withQuery from 'hocs/withQuery'
 
-const Explore = () => {
-
+const Explore = ({ data }) => {
+  console.log('explore data: ', data)
   return (
     <React.Fragment>
       <h1>Explore</h1>
@@ -10,4 +11,4 @@ const Explore = () => {
   )
 }
 
-export default Explore
+export default withQuery('users', ['projects'])(Explore)

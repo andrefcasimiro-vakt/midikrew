@@ -41,7 +41,7 @@ export const SongTools = styled(MainContainer)`
 export const TopContainer = styled.div`
   width: 5rem;
   height: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -53,6 +53,7 @@ export const BottomContainer = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  margin-top: 0.5rem;
 `
 
 export const Wrapper = styled(BoxSection)`

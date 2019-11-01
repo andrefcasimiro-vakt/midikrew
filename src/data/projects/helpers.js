@@ -1,4 +1,6 @@
 // @flow
+import { database } from 'global/firebase'
+import firebase from 'global/firebase'
 import {
   reduxStore
 } from '../../index'
@@ -6,8 +8,19 @@ import INSTRUMENT_ACTIONS from 'data/instrument/actions'
 import TRACK_ACTIONS from 'data/track/actions'
 import { loadSample } from 'data/audio/helpers'
 
+const usersTable = database.ref('users');
+let users
+usersTable.on('value', snapshot => {
+  users = Object.values(snapshot.val())
+})
+
 export const importProject = (json: any) => {
   const file = JSON.parse(json)
+
+  // Set TRACK name
+  reduxStore.dispatch(
+    TRACK_ACTIONS.setTrackName(file.trackName)
+  )
 
   // Set BPM
   reduxStore.dispatch(
@@ -51,10 +64,12 @@ export const importProject = (json: any) => {
 
 export const exportProject = () => {
   const instruments = reduxStore.getState().instrument
+  const trackName = reduxStore.getState().track.trackName
   const bpm = reduxStore.getState().track.bpm
   const sequences = reduxStore.getState().track.sequences
 
   const config = {
+    trackName,
     instruments,
     bpm,
     sequences,
@@ -69,4 +84,64 @@ export const exportProject = () => {
   linkElement.setAttribute('href', dataUri);
   linkElement.setAttribute('download', exportFileDefaultName);
   linkElement.click();
+}
+
+export const saveProject = () => {
+  const instruments = reduxStore.getState().instrument
+  const trackName = reduxStore.getState().track.trackName
+  const bpm = reduxStore.getState().track.bpm
+  const sequences = reduxStore.getState().track.sequences
+
+  const config = {
+    trackName,
+    instruments,
+    bpm,
+    sequences,
+  }
+
+  // The encoded project to be saved in the database
+  const jsonData = config
+
+  // The logged in user email
+  const jwtEmail = firebase.auth().currentUser.email
+
+  if (!jwtEmail) {
+    console.log('No user authenticated! Saving was cancelled.')
+    return
+  }
+
+  // Find current logged in user
+  const currentUser = users.find(user => user.email === jwtEmail)
+
+  // Find a project inside the user
+  const tablePath = `users/${currentUser.id}`
+
+  // Check if a project already exists in the user projects tree based on the project name
+  const existingProject = currentUser.projects && currentUser.projects.length && currentUser.projects.find(project => project.trackName === trackName)
+
+  if (existingProject) {
+    const userUpdateProjectPayload = {
+      ...currentUser,
+        projects: {
+          ...currentUser.projects,
+          [existingProject.id]: jsonData
+        }
+    }
+
+    console.log('userUpdateProjectPayload, ', userUpdateProjectPayload)
+    database.ref(tablePath).set(userUpdateProjectPayload)
+  } else {
+    // No project, give an id and add it to the user projects tree
+    const projectId = (currentUser.projects && currentUser.projects.length ? currentUser.projects.length + 1 : 0) + Date.now()
+    const userCreateProjectPayload = {
+      ...currentUser,
+      projects: {
+        ...currentUser.projects,
+        [projectId]: jsonData,
+      },
+    }
+
+    console.log('userCreateProjectPayload: ', userCreateProjectPayload)
+    database.ref(tablePath).set(userCreateProjectPayload)
+  }
 }

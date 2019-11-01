@@ -17,6 +17,7 @@ import { PLAYER_STATE, PLAYER_MODE } from 'data/track/reducer'
 import { IconButton } from 'componentsStyled/Buttons'
 import { PaddedContainer } from 'componentsStyled/Layout'
 import { Text } from 'componentsStyled/Typography'
+import ProjectName from './ProjectName'
 import {
   StyledBoxSection as BoxSection,
   MainContainer,
@@ -50,14 +51,17 @@ const SequenceManager = ({
       <MainContainer>
         {/* Sequence Tools (Add / Remove), Play / Pause, Loop Track */}
         <TopContainer>
-          <IconButton title='Remove a sequence' onClick={removeSequence} disabled={sequences.length <= 1}><RemoveIcon /></IconButton>
+          <ProjectName /> &nbsp;
           <IconButton title='Play / pause player' onClick={handlePlayer}>{playerState === PLAYER_STATE.playing ? <PauseIcon /> : <PlayIcon />}</IconButton>
           <IconButton title='Lock / unlock the sequencer for a specific loop' onClick={handleMode} enabled={playerMode === PLAYER_MODE.loop}><LoopIcon /></IconButton>
-          <IconButton title='Add a new sequence' onClick={addSequence}><PlusIcon /></IconButton>
         </TopContainer>
         {/* The current sequences list */}
         <BottomContainer>
-          {sequences.map((sequence, index) => <Sequence key={sequence.id} id={index} />)}
+            {sequences.map((sequence, index) => <Sequence key={sequence.id} id={index} />)}
+        </BottomContainer>
+        <BottomContainer>
+          <IconButton title='Remove a sequence' onClick={removeSequence} disabled={sequences.length <= 1}><RemoveIcon /></IconButton>
+          <IconButton title='Add a new sequence' onClick={addSequence}><PlusIcon /></IconButton>
         </BottomContainer>
       </MainContainer>
     </BoxSection>

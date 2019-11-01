@@ -19,7 +19,9 @@
         {
           "id": "01_project_id_20190329",
           "name": "My Project",
+          "visibility": "private",
           "project": {
+            "name": "untitled",
             "bpm": "140",
             "sequences": [
               {

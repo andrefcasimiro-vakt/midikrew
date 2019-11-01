@@ -13,6 +13,7 @@ const Types = {
   PAUSE: "PAUSE",
   SET_MODE: "SET_MODE",
   SET_EDIT_MODE: "SET_EDIT_MODE",
+  SET_TRACK_NAME: "SET_TRACK_NAME",
 }
 
 // actions
@@ -68,6 +69,11 @@ const setEditMode = (payload: 'pattern' | 'fx') => ({
   payload,
 })
 
+const setTrackName = (payload: string) => ({
+  type: Types.SET_TRACK_NAME,
+  payload,
+})
+
 export default {
   setCurrentBPM,
   setInterval,
@@ -80,5 +86,6 @@ export default {
   pause,
   setMode,
   setEditMode,
+  setTrackName,
   Types,
 }

@@ -16,7 +16,7 @@ import {
   TiGroup as CommunityIcon,
 } from 'react-icons/ti'
 import {
-  exportProject, importProject
+  saveProject, exportProject, importProject
 } from 'data/projects/helpers'
 
 const exploreLink = {
@@ -37,10 +37,15 @@ const projectLinks = {
       {
         name: 'Save',
         icon: SaveProjectIcon,
+        onClick: () => saveProject(),
+      },
+      {
+        name: 'Export (.json)',
+        icon: SaveProjectIcon,
         onClick: () => exportProject(),
       },
       {
-        name: 'Load',
+        name: 'Import (.json)',
         icon: LoadProjectIcon,
         component: () => <Uploader callback={content => {
           importProject(content)
