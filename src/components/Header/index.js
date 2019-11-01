@@ -30,13 +30,13 @@ const Header = ({ user }) => {
         {user !== undefined &&
           <React.Fragment>
             <BoldLink href={'/'}>{(appConfiguration.applicationName).toUpperCase()}</BoldLink>
-            {navLinks.map((navLink: Navlink, index) =>
+            {navLinks().map((navLink: Navlink, index) =>
               (!!navLink.to || !!navLink.onClick)
               ? <Link key={index} href={navLink.to || '#'} onClick={navLink.onClick || null}>
-                  {navLink.name}
+                  {navLink.icon && <>{navLink.icon}  &nbsp;</>} {navLink.name}
                 </Link>
               : <StatefulLink key={index} component={navLink.component} data={user}>
-                  <Link>{navLink.name}</Link>
+                  <Link>{navLink.icon} {navLink.name}</Link>
                 </StatefulLink>
             )}
           </React.Fragment>

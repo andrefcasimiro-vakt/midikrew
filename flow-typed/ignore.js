@@ -1,4 +1,8 @@
 // @flow
+declare module 'react-router-dom' {
+  declare module.exports: any
+}
+
 declare module 'styled-components' {
   declare module.exports: any
 }

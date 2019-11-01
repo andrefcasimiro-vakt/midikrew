@@ -1,6 +1,9 @@
 // @flow
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom'
 import App from 'containers/App'
 import FontFaceObserver from 'fontfaceobserver'
 import 'assets/fonts/index.css'
@@ -23,7 +26,9 @@ const element = document.getElementById('root')
 if (element) {
   ReactDOM.render(
     <ReduxProvider store={reduxStore}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ReduxProvider>,
     element
   )

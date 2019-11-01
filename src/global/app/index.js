@@ -5,6 +5,7 @@ import { loggedInLinks, loggedOutLinks } from './helpers'
 export type Navlink = {
   name: string,
   component?: Component,
+  icon?: Component,
   to?: string,
   onClick?: Function,
   subLinks?: Array<Navlink>,

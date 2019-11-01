@@ -14,6 +14,7 @@ const Input = styled.input`
 
 type Props = {
   suggestions: Array<string>,
+  placeholder: string,
 }
 
 const instruments = getList()

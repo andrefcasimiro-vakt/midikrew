@@ -30,6 +30,12 @@ export const SongTools = styled(MainContainer)`
   padding: 1rem;
   margin-bottom: 0;
   padding-bottom: 0;
+
+  flex-wrap: wrap;
+
+  ${mq('max').tablet} {
+    justify-content: center;
+  }
 `
 
 export const TopContainer = styled.div`
