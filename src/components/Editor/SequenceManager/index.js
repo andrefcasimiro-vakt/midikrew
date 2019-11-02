@@ -86,10 +86,7 @@ const SequenceManager = ({
               <p>{instrument.name}</p>
             </Instrument>
             <GridWrapper>
-              <InstrumentGrid
-                instrumentOwner={instrument.id}
-                sample={instrument.sampleSource}
-              />
+              <InstrumentGrid instrumentOwnerId={instrument.id} />
             </GridWrapper>
           </Column>
         )

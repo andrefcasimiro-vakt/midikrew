@@ -1,7 +1,10 @@
-// @flow
-import { reduxStore } from '../../index'
-// $Ignore
+import store from 'global/store'
+import { FX } from './types'
+// @ts-ignore
 import convolver_sample from 'assets/samples/convolver.wav'
+
+// Global used as the reverb signal
+let convolverBuffer: AudioBuffer
 
 export const loadSample = async (
   url: string,
@@ -12,7 +15,6 @@ export const loadSample = async (
 ) => {
   var request = new XMLHttpRequest()
 
-//  var originalUrl = url
   url = url.replace('public/', '/')
 
   request.open('GET', url, true)
@@ -21,16 +23,17 @@ export const loadSample = async (
   // Decode asynchronously
   request.onload = function () {
     audioContext.decodeAudioData(request.response, function (buffer) {
-      // Now for the fun part :)
-      var source = audioContext.createBufferSource(); // creates a sound source
+      // Create a sound source
+      let source = audioContext.createBufferSource();
 
       // Pitch
       source.playbackRate.value = pitch
+
       // Volume
-      var gainNode = audioContext.createGain()
+      let gainNode = audioContext.createGain()
       gainNode.gain.value = volume
 
-
+      // Connect
       gainNode.connect(audioContext.destination)
       source.connect(gainNode)
 
@@ -44,22 +47,19 @@ export const loadSample = async (
   request.send()
 }
 
-// Global used as the reverb signal
-let convolverBuffer
-
 /**
- * @param {AudioBuffer} sampleSource - The base sample source
- * @param {AudioContext} audioContext - The audio context instance
- * @param {Object} fxChain - The fx to apply to the sample source
+ * @param { AudioBuffer } sampleSource - The base sample source
+ * @param { AudioContext } audioContext - The audio context instance
+ * @param { FX } fxChain - The fx to apply to the sample source
  */
 export const play = (
   sampleSource: AudioBuffer,
   audioContext: AudioContext,
-  fxChain: Object,
+  fxChain: FX,
 ) => {
   if (!convolverBuffer) {
     // Load convolver signal
-    loadSample(convolver_sample, reduxStore.getState().track.audioContext, 1, 1, response => {
+    loadSample(convolver_sample, store.getState().track.audioContext, 1, 1, (response: AudioBuffer) => {
       convolverBuffer = response
     })
   }

@@ -2,7 +2,7 @@
 import ACTIONS from './actions'
 import type { Instrument } from './types'
 
-type State = {
+export type State = {
   instruments: Array<Instrument>,
   copyBuffer: Array<{
     instrumentID: number,

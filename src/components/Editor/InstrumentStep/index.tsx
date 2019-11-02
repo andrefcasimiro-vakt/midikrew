@@ -1,18 +1,13 @@
-// @flow
 import React from 'react'
-import withOpen from 'hocs/withOpen'
 import * as R from 'ramda'
 import { connect } from 'react-redux'
-import { compose, type HOC, withHandlers, withStateHandlers, withProps, lifecycle } from 'recompose'
+import { compose, HOC, withHandlers, withStateHandlers, withProps, lifecycle } from 'recompose'
 import INSTRUMENT_ACTIONS from 'data/instrument/actions'
 import TRACK_ACTIONS from 'data/track/actions'
-import type { Instrument } from 'data/instrument/types'
+import { Instrument } from 'data/instrument/types'
 import { PLAYER_STATE } from 'data/track/reducer'
+import withOpen from 'hocs/withOpen'
 import StepOptions from './StepOptions'
-import {
-  IoMdColorWand as GearIcon,
-} from 'react-icons/io'
-import { IconContext } from "react-icons"
 import { ActionWrapper, StepWrapper } from './styled'
 import Modal from 'modals/_Modal'
 import { play } from 'data/audio/helpers'
@@ -20,6 +15,17 @@ import { play } from 'data/audio/helpers'
 type Props = {
   index: number,
   instrument: Instrument,
+}
+
+type Outter = {
+  index: number,
+  audioContext: AudioContext,
+  handleSelection: Function,
+  instrument: Instrument,
+  currentStep: number,
+  currentSequence: number,
+  canPlay: boolean,
+  setCanPlay: (v: boolean) => (boolean),
 }
 
 const InstrumentStep = ({
@@ -40,11 +46,11 @@ const InstrumentStep = ({
   isOpen,
   editMode,
   setEditMode,
-}) => {
-  let trigger = 
-    canPlay && 
-    playerState === PLAYER_STATE.playing && 
-    index === currentStep && 
+}: Outter) => {
+  let trigger =
+    canPlay &&
+    playerState === PLAYER_STATE.playing &&
+    index === currentStep &&
     selected
 
   // Avoids an accidental retriggering caused by the nature of this component's lifecycle update
@@ -107,7 +113,7 @@ const enhancer: HOC<*, Props> = compose(
       canPlay: true,
     },
     {
-      setCanPlay: () => (v) => ({ canPlay: v }),
+      setCanPlay: () => (canPlay: boolean) => ({ canPlay }),
     },
   ),
   withHandlers({

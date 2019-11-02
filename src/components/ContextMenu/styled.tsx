@@ -1,7 +1,7 @@
 // @flow
 import styled from 'styled-components'
 import theme from 'global/theme'
-import { mq } from 'common/mediaQueries'
+import { mq, breakpoints } from 'common/mediaQueries'
 
 export const RelativeWrapper = styled.div`
   position: relative;
@@ -28,13 +28,13 @@ export const AbsoluteWrapper = styled.div`
     margin-bottom: 1.5rem;
   }
 
-  ${mq('min').tablet} {
+  ${mq('min', breakpoints.tablet)} {
     font-size: 1.4rem;
     min-width: 10rem;
     left: -2.6rem;
   }
 
-  ${mq('min').tabletWide} {
+  ${mq('min', breakpoints.tabletWide)} {
     min-width: 16rem;
     left: -4rem;
   }

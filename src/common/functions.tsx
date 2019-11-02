@@ -1,15 +1,13 @@
-// @flow
-
 /**
- * Returns an index of where a given element might be in an array
+ * > | Returns an index of where a given element might be in an array
  * Assumes the array it receives is sorted
  */
-export const binarySearch = (
-  array: Array<*>,
+export function binarySearch<T>(
+  array: Array<T>,
   elementToFind: number | string | any,
   start: number = 0,
   end: number = array.length - 1,
-): number =>  {
+): number {
   if (end < start) {
     return -1
   }
@@ -22,5 +20,4 @@ export const binarySearch = (
       ? binarySearch(array, elementToFind, start, middle - 1)
       : binarySearch(array, elementToFind, middle + 1, end)
 }
-
 

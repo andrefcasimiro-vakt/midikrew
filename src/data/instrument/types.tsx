@@ -4,7 +4,7 @@ export type Instrument = {
   id: string,
   name: string,
   samplePath: string,
-  sampleSource: ?AudioBuffer,
+  sampleSource: AudioBuffer,
   sequences: Array<Array<{
     fx?: {
       pitch?: number,

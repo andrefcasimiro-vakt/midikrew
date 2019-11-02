@@ -22,7 +22,7 @@ export const EDIT_MODE = {
   fx: 'fx',
 }
 
-type State = {
+export type State = {
   bpm: number,
   interval: number, // the interval of a loop based on bpms and lines per beat
   currentStep: number,

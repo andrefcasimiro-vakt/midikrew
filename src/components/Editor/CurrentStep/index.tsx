@@ -1,11 +1,11 @@
-// @flow
 import React from 'react'
 import { connect } from 'react-redux'
+import { StoreState } from 'global/store'
 import { StepIndicator } from './styled'
 
-const generator = []
+const generator: number[] = [];
 for (let i = 0; i < 16; i++) {
-  generator.push(i)
+  generator.push(i);
 }
 
 /**
@@ -18,7 +18,7 @@ const CurrentStep = ({ currentStep }: any) => (
   </>
 )
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: StoreState) => ({
   currentStep: state.track.currentStep,
 })
 
