@@ -1,0 +1,55 @@
+
+{
+  "users": [
+    {
+      "id": "0001",
+      "email": "user@gmail.com",
+      "profile": {
+        "displayName": "",
+        "biography": "",
+        "avatar": "",
+        "links": [
+          {
+            "name": "Link 1",
+            "url": "#"
+          }
+        ]
+      },
+      "projects": [
+        {
+          "id": "01_project_id_20190329",
+          "name": "My Project",
+          "visibility": "private",
+          "project": {
+            "name": "untitled",
+            "bpm": "140",
+            "sequences": [
+              {
+                "id": "seq1",
+                "numberOfSteps": 16
+              }
+            ],
+            "instruments": [
+              {
+                "id": 1572306265812,
+                "name":"707 Cowbell",
+                "samplePath":"/static/media/CowBell.7eb3b941.wav",
+                "sampleSource":{},
+                "sequences":[
+                  [
+                    {
+                      "index": 4
+                    },
+                    {
+                      "index": 14
+                    }
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import {
 import { compose, type HOC } from 'recompose'
 import firebase from 'global/firebase'
 import withFirebaseAuth from 'react-with-firebase-auth'
+import withMutation from 'hocs/withMutation'
 import type { Form as FormType } from 'data/forms/types'
 import { Ul, Li } from 'componentsStyled/Shared'
 import { Text } from 'componentsStyled/Typography'
@@ -49,10 +50,24 @@ const form: FormType[] = [
 //   error?: firebase.FirebaseError,
 // }
 
-const Join = ({ close, user, createUserWithEmailAndPassword, error }) => {
+const Join = ({ close, user, createUserWithEmailAndPassword, error, submitMutation }) => {
   const submitHandler = (input) => {
     const email = input.email
     const password = input.password
+
+    // Add user to db table
+    submitMutation(
+      { email },
+      users => {
+        // If there is a user with this email already, don't run the mutation
+        if (users.find(user => user.email === email)) {
+          return false
+        }
+
+        // If there is no user with this email, run the mutation
+        return true
+      },
+    )
 
     return createUserWithEmailAndPassword(email, password)
   }
@@ -82,6 +97,10 @@ const enhancer: HOC<*, Props> = compose(
     },
     firebaseAppAuth: firebase.auth(),
   }),
+  withMutation(
+    'users',
+    'post'
+  ),
 )
 
 export default enhancer(Join)

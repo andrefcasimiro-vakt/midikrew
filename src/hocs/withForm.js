@@ -57,6 +57,7 @@ function withForm<Outter, Response, Schema: {}>(
       mapPropsToValues: props => {
         if (props.formData) {
           const _schema = props.schema || schema
+          // $Ignore
           return pick(Object.keys(_schema))(props.formData)
         }
 

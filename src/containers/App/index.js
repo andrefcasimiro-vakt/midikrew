@@ -1,10 +1,15 @@
 // @flow
 import React, { Component } from 'react'
 import withFirebaseAuth from 'react-with-firebase-auth'
+import {
+  Switch,
+  Route,
+} from 'react-router-dom'
 import Header from 'components/Header'
 import GlobalStyle from 'global/global-styles'
 import firebase from 'global/firebase'
 import Home from 'pages/Home'
+import Explore from 'pages/Explore'
 
 type Props = {
   signInWithEmailAndPassword: (email: string, password: string) => void,
@@ -34,7 +39,14 @@ class App<P: Props> extends Component <P, {}> {
       <React.Fragment>
         <GlobalStyle />
         <Header />
-        <Home />
+        <Switch>
+          <Route path="/explore">
+            <Explore />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </React.Fragment>
     )
   }
